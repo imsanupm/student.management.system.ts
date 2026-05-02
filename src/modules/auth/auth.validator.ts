@@ -13,3 +13,20 @@ export const validateSignup = (req: Request, res: Response, next: NextFunction) 
 
   next(); // Move to the controller
 };
+
+
+
+export const validateSignin = (req: Request, res: Response, next: NextFunction) => {
+  const { studentIdNo, password } = req.body;
+
+  if (!studentIdNo || !password) {
+    return res.status(400).json({
+      success: false,
+      message: 'Student ID Number and password are required.',
+    });
+  }
+
+
+
+  next();
+};
