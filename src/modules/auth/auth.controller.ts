@@ -20,7 +20,27 @@ export class AuthController {
 
   public renderSignup = (req: Request, res: Response): void => {
     res.render('signup', { title: 'Sign Up' });
-  }
+  };
+
+  public handleSignin = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { studentIdNo, password } = req.body;
+      
+      const user = await this.authService.verifySignin(studentIdNo, password);
+
+      res.status(200).json({
+        success: true,
+        message: "Login successful",
+        // Note: verify if user.studentName is the correct field in your DB
+        user: { id: user.studentIdNo, stName: user.studentName }
+      });
+    } catch (error: any) {
+      res.status(401).json({
+        success: false,
+        message: error.message
+      });
+    }
+  };
 }
 
 // Export the class definition, not 'new Auth()'

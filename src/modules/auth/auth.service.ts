@@ -16,4 +16,18 @@ export class AuthService {
       password: hashedPassword
     });
   }
+
+  async verifySignin(email: string, pass: string) {
+    // 1. Get data from Repository
+    const user = await this.authRepository.findByIdNo(email);
+
+    if (!user) throw new Error('Invalid credentials');
+
+    // 2. Perform Business Logic
+    const isMatch = await bcrypt.compare(pass, user.password);
+    if (!isMatch) throw new Error('Invalid credentials');
+
+    return user;
+  }
+
 }

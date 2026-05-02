@@ -1,19 +1,10 @@
  import { Router } from "express";
-// import {AuthController} from "./auth.controller"
-// const router = Router();
-
-
-// router.post("/", Auth.handleSignup);
-
-
-// export default router;
-
 
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuthRepository } from './auth.repository';
-import { validateSignup } from './auth.validator';
+import { validateSignup,validateSignin } from './auth.validator';
 
 const router = Router();
 
@@ -22,10 +13,9 @@ const repo = new AuthRepository();
 const service = new AuthService(repo);
 const controller = new AuthController(service);
 
-// GET signup page
-router.get('/signup', controller.renderSignup);
 
-// POST signup with validation middleware
+router.get('/signup', controller.renderSignup);
 router.post('/', validateSignup, controller.handleSignup);
+router.post('/signin', validateSignin, controller.handleSignin);
 
 export default router;
