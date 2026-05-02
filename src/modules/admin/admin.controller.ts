@@ -47,4 +47,37 @@ export class AdminController {
             });
         }
     };
+
+    public updateStudent = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { id } = req.params; 
+      const updateData = req.body;
+
+
+     if (!updateData || Object.keys(updateData).length === 0) {
+      res.status(400).json({
+        success: false,
+        reason: "Missing data for update. Please provide fields to update."
+      });
+      return;
+    }
+
+      const result = await this.adminService.updateStudentDetails(id as string, updateData);
+
+      res.status(200).json({
+        success: true,
+        message: "Student updated successfully",
+        data: {
+          studentName: result.studentName,
+          studentIdNo: result.studentIdNo,
+          age: result.age
+        }
+      });
+    } catch (error: any) {
+      res.status(404).json({
+        success: false,
+        message: error.message
+      });
+    }
+  };
 }

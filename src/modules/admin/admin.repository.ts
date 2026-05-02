@@ -1,4 +1,4 @@
-import { Student, IStudent } from '../../models/student.model';
+import { Student } from '../../models/student.model';
 
 export class AdminRepository {
 
@@ -10,5 +10,10 @@ export class AdminRepository {
     public async deleteStudentByName(name: string) {
 
         return await Student.findOneAndDelete({ studentName: name });
+    }
+
+    public async updateStudentById(id: string, updateData: { studentName?: string; studentIdNo?: string; age?: number }) {
+        
+        return await Student.findByIdAndUpdate(id, updateData, { returnDocument: 'after' });
     }
 }
