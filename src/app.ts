@@ -27,6 +27,6 @@ app.use(
  })
 );
 
-// app.use(routes);
+app.use(routes);
 
 export default app;
