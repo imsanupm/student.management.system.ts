@@ -1,1 +1,1 @@
-# student.management.system.ts
+This project was developed as part of a self-learning journey focused on TypeScript, OOP concepts, and SOLID principles. It is structured using a layered architecture, showcasing best practices for building clean and maintainable applications.
